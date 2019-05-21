@@ -1,0 +1,35 @@
+﻿#pragma once
+
+
+// CEmpTab1Dlg 대화 상자
+class CSWTestDlg;
+class Setting;
+class CEmployeeDlg;
+class CEmpTab1Dlg : public CDialogEx
+{
+	DECLARE_DYNAMIC(CEmpTab1Dlg)
+
+public:
+	CEmpTab1Dlg(CWnd* pParent = nullptr);   // 표준 생성자입니다.
+	virtual ~CEmpTab1Dlg();
+
+// 대화 상자 데이터입니다.
+#ifdef AFX_DESIGN_TIME
+	enum { IDD = IDD_DIALOG2 };
+#endif
+
+protected:
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
+
+	DECLARE_MESSAGE_MAP()
+public:
+	CEmpTab1Dlg(CEmployeeDlg *);  // 생성자
+	CEmployeeDlg *cempdlg;
+	Setting *set;
+	CSWTestDlg *myswdlg;
+	CListCtrl m_listctrl;
+	int dcount;
+	int select;
+	virtual BOOL OnInitDialog();
+	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
+};
