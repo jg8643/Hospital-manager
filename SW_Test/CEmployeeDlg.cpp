@@ -86,12 +86,18 @@ CEmployeeDlg::CEmployeeDlg(CEmployeeDlg * cempdlg)
 }
 
 
-void CEmployeeDlg::Update(int idx)
+void CEmployeeDlg::SetInformation(int idx)
 {
-	
 	for (int i = 0; i < 9; i++) {
 		pedit[i]->SetWindowText(set->emp->empdata[idx]->e_data[i + 1]);
 	}
+}
+
+void CEmployeeDlg::Update()
+{
+	cet1->Update();
+	cet2->Update();
+	cet3->Update();
 }
 
 void CEmployeeDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
@@ -127,4 +133,5 @@ void CEmployeeDlg::OnBnClickedButton10()
 	CEmpAddDlg cempadddlg;
 	cempadddlg.DoModal();
 	cempadddlg.DestroyWindow();
+	Update();
 }

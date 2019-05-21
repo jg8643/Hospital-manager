@@ -46,11 +46,24 @@ END_MESSAGE_MAP()
 // CEmpTab1Dlg 메시지 처리기
 
 
+void CEmpTab1Dlg::Update()
+{
+	m_listctrl.DeleteAllItems();
+	int j = 0;
+	for (int i = 0; i < set->emp->ecount; i++) {
+		if (set->emp->empdata[i]->e_data[0] == L"의사" || set->emp->empdata[i]->e_data[0] == L"\n의사") {
+			m_listctrl.InsertItem(j, set->emp->empdata[i]->e_data[1]);
+			m_listctrl.SetItem(j, 1, LVIF_TEXT, set->emp->empdata[i]->e_data[2], NULL, NULL, NULL, NULL);
+			m_listctrl.SetItem(j, 2, LVIF_TEXT, set->emp->empdata[i]->e_data[3], NULL, NULL, NULL, NULL);
+			m_listctrl.SetItem(j++, 3, LVIF_TEXT, set->emp->empdata[i]->e_data[4], NULL, NULL, NULL, NULL);
+		}
+	}
+}
+
 BOOL CEmpTab1Dlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	dcount = 0;
 	select = -1;
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
 	CRect rt1;
@@ -63,16 +76,16 @@ BOOL CEmpTab1Dlg::OnInitDialog()
 
 	
 	m_listctrl.DeleteAllItems();
+	int j = 0;
 	for (int i = 0; i < set->emp->ecount; i++) {
 		if (set->emp->empdata[i]->e_data[0] == L"의사") {
-			m_listctrl.InsertItem(i, set->emp->empdata[i]->e_data[1]);
-			m_listctrl.SetItem(dcount, 1, LVIF_TEXT, set->emp->empdata[i]->e_data[2], NULL, NULL, NULL, NULL);
-			m_listctrl.SetItem(dcount, 2, LVIF_TEXT, set->emp->empdata[i]->e_data[3], NULL, NULL, NULL, NULL);
-			m_listctrl.SetItem(dcount++, 3, LVIF_TEXT, set->emp->empdata[i]->e_data[4], NULL, NULL, NULL, NULL);
+			m_listctrl.InsertItem(j, set->emp->empdata[i]->e_data[1]);
+			m_listctrl.SetItem(j, 1, LVIF_TEXT, set->emp->empdata[i]->e_data[2], NULL, NULL, NULL, NULL);
+			m_listctrl.SetItem(j, 2, LVIF_TEXT, set->emp->empdata[i]->e_data[3], NULL, NULL, NULL, NULL);
+			m_listctrl.SetItem(j++, 3, LVIF_TEXT, set->emp->empdata[i]->e_data[4], NULL, NULL, NULL, NULL);
+			set->emp->dcount++;
 		}
 	}
-	
-
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
@@ -84,11 +97,10 @@ void CEmpTab1Dlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	select = pNMLV->iItem;
-
 	for (int i = 0; i < set->emp->ecount; i++) {
-		for (int j = 0; j < dcount; j++) {
+		for (int j = 0; j < set->emp->dcount; j++) {
 			if (set->emp->empdata[i]->e_data[1] == m_listctrl.GetItemText(select, 0)) {
-				cempdlg->Update(i);
+				cempdlg->SetInformation(i);
 			}
 		}
 	}

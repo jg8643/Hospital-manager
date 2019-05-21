@@ -8,6 +8,7 @@
 #include "Setting.h"
 #include "SW_TestDlg.h"
 #include "Employee.h"
+#include "CEmployeeDlg.h"
 // CEmpAddDlg 대화 상자
 
 IMPLEMENT_DYNAMIC(CEmpAddDlg, CDialogEx)
@@ -32,6 +33,7 @@ void CEmpAddDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CEmpAddDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON12, &CEmpAddDlg::OnBnClickedButton12)
+	ON_BN_CLICKED(IDOK, &CEmpAddDlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -67,12 +69,41 @@ BOOL CEmpAddDlg::OnInitDialog()
 void CEmpAddDlg::OnBnClickedButton12()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	CString str;
-	for (int i = 1; i < 9; i++) {
+	CString str, combo;
+	CString temp[10];
+	int blank = 0;
+	m_combo.GetLBText(m_combo.GetCurSel(), combo);
+	combo.Insert(0, L"\n");
+	temp[0] = combo;
+
+	for (int i = 0; i < 9; i++) {
 		pedit[i]->GetWindowText(str);
 		if (str == L"") {
 			AfxMessageBox(L"비었어요");
+			blank = 1;
 			break;
 		}
+		else {
+			temp[i+1] = str;
+		}
 	}
+	if (blank == 0) {
+		if (combo == L"\n의사")
+			set->emp->dcount++;
+		else if (combo == L"\n간호사")
+			set->emp->ncount++;
+		else
+			set->emp->scount++;
+		set->emp->empdata[set->emp->ecount++] = new edata(temp);
+		set->emp->WriteEmpFile();
+		AfxMessageBox(L"추가되었습니다.");
+	}
+	CDialogEx::OnOK();
+}
+
+
+void CEmpAddDlg::OnBnClickedOk()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CDialogEx::OnOK();
 }

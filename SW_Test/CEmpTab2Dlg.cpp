@@ -48,11 +48,24 @@ END_MESSAGE_MAP()
 // CEmpTab2Dlg 메시지 처리기
 
 
+void CEmpTab2Dlg::Update()
+{
+	m_listctrl.DeleteAllItems();
+	int j = 0;
+	for (int i = 0; i < set->emp->ecount; i++) {
+		if (set->emp->empdata[i]->e_data[0] == L"간호사" || set->emp->empdata[i]->e_data[0] == L"\n간호사") {
+			m_listctrl.InsertItem(j, set->emp->empdata[i]->e_data[1]);
+			m_listctrl.SetItem(j, 1, LVIF_TEXT, set->emp->empdata[i]->e_data[2], NULL, NULL, NULL, NULL);
+			m_listctrl.SetItem(j, 2, LVIF_TEXT, set->emp->empdata[i]->e_data[3], NULL, NULL, NULL, NULL);
+			m_listctrl.SetItem(j++, 3, LVIF_TEXT, set->emp->empdata[i]->e_data[4], NULL, NULL, NULL, NULL);
+		}
+	}
+}
+
 BOOL CEmpTab2Dlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 	
-	ncount = 0;
 	select = -1;
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
 	CRect rt1;
@@ -63,14 +76,15 @@ BOOL CEmpTab2Dlg::OnInitDialog()
 	m_listctrl.InsertColumn(2, TEXT("성별"), LVCFMT_LEFT, rt1.Width()*0.2);
 	m_listctrl.InsertColumn(3, TEXT("주민등록번호"), LVCFMT_LEFT, rt1.Width()*0.4);
 
-	int j = 0;
 	m_listctrl.DeleteAllItems();
+	int j = 0;
 	for (int i = 0; i < set->emp->ecount; i++) {
 		if (set->emp->empdata[i]->e_data[0] == L"간호사") {
-			m_listctrl.InsertItem(i, set->emp->empdata[i]->e_data[1]);
+			m_listctrl.InsertItem(j, set->emp->empdata[i]->e_data[1]);
 			m_listctrl.SetItem(j, 1, LVIF_TEXT, set->emp->empdata[i]->e_data[2], NULL, NULL, NULL, NULL);
 			m_listctrl.SetItem(j, 2, LVIF_TEXT, set->emp->empdata[i]->e_data[3], NULL, NULL, NULL, NULL);
 			m_listctrl.SetItem(j++, 3, LVIF_TEXT, set->emp->empdata[i]->e_data[4], NULL, NULL, NULL, NULL);
+			set->emp->ncount++;
 		}
 	}
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -85,8 +99,10 @@ void CEmpTab2Dlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	select = pNMLV->iItem;
 	for (int i = 0; i < set->emp->ecount; i++) {
-		if (set->emp->empdata[i]->e_data[1] == m_listctrl.GetItemText(select, 0)) {
-			cempdlg->Update(i);
+		for (int j = 0; j < set->emp->ncount; j++) {
+			if (set->emp->empdata[i]->e_data[1] == m_listctrl.GetItemText(select, 0)) {
+				cempdlg->SetInformation(i);
+			}
 		}
 	}
 	*pResult = 0;

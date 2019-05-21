@@ -24,12 +24,12 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CEmpTab3Dlg(CEmployeeDlg *);  // 생성자
-	int scount;
 	int select;
 	CEmployeeDlg *cempdlg;
 	Setting *set;
 	CSWTestDlg *myswdlg;
 	CListCtrl m_listctrl;
+	void Update();
 	virtual BOOL OnInitDialog();
 	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
 };

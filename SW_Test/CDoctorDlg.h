@@ -24,9 +24,11 @@ protected:
 public:
 	Setting *set;
 	CSWTestDlg *myswdlg;
-	CEdit *pedit[6];
+	CEdit *pedit[8];
+	int select;
 	CListCtrl m_listctrl1;
 	CListCtrl m_listctrl2;
 	CListCtrl m_listctrl3;
 	virtual BOOL OnInitDialog();
+	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
 };

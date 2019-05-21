@@ -34,6 +34,7 @@ void CDoctorDlg::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CDoctorDlg, CDialogEx)
+	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &CDoctorDlg::OnNMDblclkList1)
 END_MESSAGE_MAP()
 
 
@@ -43,8 +44,8 @@ END_MESSAGE_MAP()
 BOOL CDoctorDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-	int idc_edit[6] = { IDC_EDIT1,IDC_EDIT2 ,IDC_EDIT3 ,IDC_EDIT4 ,IDC_EDIT5 ,IDC_EDIT6 };
-	for (int i = 0; i < 6; i++) {
+	int idc_edit[8] = { IDC_EDIT1,IDC_EDIT2 ,IDC_EDIT3 ,IDC_EDIT4 ,IDC_EDIT5 ,IDC_EDIT6 , IDC_EDIT7, IDC_EDIT8};
+	for (int i = 0; i < 8; i++) {
 		pedit[i] = (CEdit*)GetDlgItem(idc_edit[i]);
 	}
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
@@ -80,4 +81,21 @@ BOOL CDoctorDlg::OnInitDialog()
 	}
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
+}
+
+
+void CDoctorDlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	select = pNMLV->iItem;
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	for (int i = 0; i < set->pat->pcount; i++) {
+		if (set->pat->patdata[i]->p_data[0] == m_listctrl1.GetItemText(select, 0)) {
+			for (int j = 0; j < 7; j++) {
+				pedit[j]->SetWindowText(set->pat->patdata[i]->p_data[j]);
+			}
+		}
+	}
+	*pResult = 0;
 }

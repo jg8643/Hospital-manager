@@ -28,4 +28,5 @@ public:
 	CEdit *pedit[9];
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedButton12();
+	afx_msg void OnBnClickedOk();
 };

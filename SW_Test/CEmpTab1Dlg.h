@@ -28,8 +28,8 @@ public:
 	Setting *set;
 	CSWTestDlg *myswdlg;
 	CListCtrl m_listctrl;
-	int dcount;
 	int select;
+	void Update();
 	virtual BOOL OnInitDialog();
 	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
 };
