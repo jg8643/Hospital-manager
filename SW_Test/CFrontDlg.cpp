@@ -8,7 +8,7 @@
 #include "SW_TestDlg.h"
 #include "Setting.h"
 #include "Patient.h"
-
+#include "CPatAddDlg.h"
 // CFrontDlg 대화 상자
 
 IMPLEMENT_DYNAMIC(CFrontDlg, CDialogEx)
@@ -38,6 +38,7 @@ BEGIN_MESSAGE_MAP(CFrontDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON10, &CFrontDlg::OnBnClickedButton10)
 	ON_BN_CLICKED(IDC_BUTTON7, &CFrontDlg::OnBnClickedButton7)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &CFrontDlg::OnNMDblclkList1)
+	ON_NOTIFY(NM_CLICK, IDC_LIST1, &CFrontDlg::OnNMClickList1)
 END_MESSAGE_MAP()
 
 
@@ -91,6 +92,9 @@ BOOL CFrontDlg::OnInitDialog()
 void CFrontDlg::OnBnClickedButton9()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CPatAddDlg cpatadddlg;
+	cpatadddlg.DoModal();
+	cpatadddlg.DestroyWindow();
 }
 
 
@@ -143,5 +147,23 @@ void CFrontDlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 	m_listctrl2.SetItem(set->wait_count, 1, LVIF_TEXT, m_listctrl1.GetItemText(select, 1), NULL, NULL, NULL, NULL);
 	m_listctrl2.SetItem(set->wait_count, 2, LVIF_TEXT, m_listctrl1.GetItemText(select, 2), NULL, NULL, NULL, NULL);
 	m_listctrl2.SetItem(set->wait_count++, 3, LVIF_TEXT, m_listctrl1.GetItemText(select, 3), NULL, NULL, NULL, NULL);
+
+	*pResult = 0;
+}
+
+
+void CFrontDlg::OnNMClickList1(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	select = pNMLV->iItem;
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	for (int i = 0; i < set->pat->pcount; i++) {
+		if (m_listctrl1.GetItemText(select, 0) == set->pat->patdata[i]->p_data[0]) {
+			for (int j = 0; j < 6; j++) {
+				pedit[j]->SetWindowText(set->pat->patdata[i]->p_data[j]);
+			}
+		}
+	}
 	*pResult = 0;
 }

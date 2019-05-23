@@ -186,6 +186,7 @@
     <ClInclude Include="CEmpTab2Dlg.h" />
     <ClInclude Include="CEmpTab3Dlg.h" />
     <ClInclude Include="CFrontDlg.h" />
+    <ClInclude Include="CPatAddDlg.h" />
     <ClInclude Include="edata.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="Patient.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="CEmpTab2Dlg.cpp" />
     <ClCompile Include="CEmpTab3Dlg.cpp" />
     <ClCompile Include="CFrontDlg.cpp" />
+    <ClCompile Include="CPatAddDlg.cpp" />
     <ClCompile Include="edata.cpp" />
     <ClCompile Include="Employee.cpp" />
     <ClCompile Include="Patient.cpp" />

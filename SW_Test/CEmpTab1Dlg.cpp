@@ -16,7 +16,6 @@ IMPLEMENT_DYNAMIC(CEmpTab1Dlg, CDialogEx)
 CEmpTab1Dlg::CEmpTab1Dlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_DIALOG2, pParent)
 {
-
 }
 CEmpTab1Dlg::CEmpTab1Dlg(CEmployeeDlg * cempdlg) {
 	myswdlg = (CSWTestDlg*)::AfxGetMainWnd();
@@ -40,6 +39,7 @@ void CEmpTab1Dlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CEmpTab1Dlg, CDialogEx)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &CEmpTab1Dlg::OnNMDblclkList1)
+	ON_NOTIFY(NM_CLICK, IDC_LIST1, &CEmpTab1Dlg::OnNMClickList1)
 END_MESSAGE_MAP()
 
 
@@ -51,13 +51,41 @@ void CEmpTab1Dlg::Update()
 	m_listctrl.DeleteAllItems();
 	int j = 0;
 	for (int i = 0; i < set->emp->ecount; i++) {
-		if (set->emp->empdata[i]->e_data[0] == L"의사" || set->emp->empdata[i]->e_data[0] == L"\n의사") {
+		if (set->emp->empdata[i]->e_data[0] == L"의사") {
 			m_listctrl.InsertItem(j, set->emp->empdata[i]->e_data[1]);
 			m_listctrl.SetItem(j, 1, LVIF_TEXT, set->emp->empdata[i]->e_data[2], NULL, NULL, NULL, NULL);
 			m_listctrl.SetItem(j, 2, LVIF_TEXT, set->emp->empdata[i]->e_data[3], NULL, NULL, NULL, NULL);
 			m_listctrl.SetItem(j++, 3, LVIF_TEXT, set->emp->empdata[i]->e_data[4], NULL, NULL, NULL, NULL);
 		}
 	}
+}
+
+void CEmpTab1Dlg::Delete()
+{
+	int temp;
+	if (mark >= 0) {
+		for (int i = 0; i < set->emp->ecount; i++) {
+			if (set->emp->empdata[i]->e_data[1] == m_listctrl.GetItemText(mark, 0)) {
+				
+				for (int j = i; j < set->emp->ecount; j++) {
+					if (!(j == set->emp->ecount - 1)) {
+						temp = _ttoi(set->emp->empdata[j + 1]->e_data[1]) - 1;
+						set->emp->empdata[j + 1]->e_data[1].Format(_T("%d"), temp);
+					}
+					set->emp->empdata[j] = set->emp->empdata[j + 1];
+				}
+				set->emp->dcount--;
+				set->emp->ecount--;
+			}
+		}
+		m_listctrl.DeleteItem(mark);
+		mark = -1;
+		set->emp->WriteEmpFile();
+	}
+	else {
+		AfxMessageBox(L"선택 ㄱㄱ");
+	}
+	Update();
 }
 
 BOOL CEmpTab1Dlg::OnInitDialog()
@@ -104,6 +132,14 @@ void CEmpTab1Dlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 			}
 		}
 	}
-	
+	*pResult = 0;
+}
+
+void CEmpTab1Dlg::OnNMClickList1(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	mark = pNMLV->iItem;
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	*pResult = 0;
 }

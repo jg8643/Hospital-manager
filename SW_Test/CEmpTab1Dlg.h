@@ -29,7 +29,10 @@ public:
 	CSWTestDlg *myswdlg;
 	CListCtrl m_listctrl;
 	int select;
+	int mark;
 	void Update();
+	void Delete();
 	virtual BOOL OnInitDialog();
 	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnNMClickList1(NMHDR *pNMHDR, LRESULT *pResult);
 };

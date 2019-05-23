@@ -38,4 +38,6 @@ public:
 	void Update();
 	afx_msg void OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnClickedButton10();
+	afx_msg void OnBnClickedButton11();
+	afx_msg void OnBnClickedButton12();
 };

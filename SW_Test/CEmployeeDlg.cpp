@@ -38,6 +38,8 @@ void CEmployeeDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CEmployeeDlg, CDialogEx)
 	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB1, &CEmployeeDlg::OnTcnSelchangeTab1)
 	ON_BN_CLICKED(IDC_BUTTON10, &CEmployeeDlg::OnBnClickedButton10)
+	ON_BN_CLICKED(IDC_BUTTON11, &CEmployeeDlg::OnBnClickedButton11)
+	ON_BN_CLICKED(IDC_BUTTON12, &CEmployeeDlg::OnBnClickedButton12)
 END_MESSAGE_MAP()
 
 
@@ -134,4 +136,25 @@ void CEmployeeDlg::OnBnClickedButton10()
 	cempadddlg.DoModal();
 	cempadddlg.DestroyWindow();
 	Update();
+}
+
+
+void CEmployeeDlg::OnBnClickedButton11()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (cet1->mark >= 0)
+		cet1->Delete();
+	else if (cet2->mark >= 0)
+		cet2->Delete();
+	else if (cet3->mark >= 0)
+		cet3->Delete();
+	else
+		AfxMessageBox(L"선택해주세요");
+	Update();
+}
+
+
+void CEmployeeDlg::OnBnClickedButton12()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }

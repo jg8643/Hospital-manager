@@ -73,7 +73,7 @@ void CEmpAddDlg::OnBnClickedButton12()
 	CString temp[10];
 	int blank = 0;
 	m_combo.GetLBText(m_combo.GetCurSel(), combo);
-	combo.Insert(0, L"\n");
+	//combo.Insert(0, L"\n");
 	temp[0] = combo;
 
 	for (int i = 0; i < 9; i++) {
@@ -97,8 +97,8 @@ void CEmpAddDlg::OnBnClickedButton12()
 		set->emp->empdata[set->emp->ecount++] = new edata(temp);
 		set->emp->WriteEmpFile();
 		AfxMessageBox(L"추가되었습니다.");
+		CDialogEx::OnOK();
 	}
-	CDialogEx::OnOK();
 }
 
 
