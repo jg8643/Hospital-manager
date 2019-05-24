@@ -13,5 +13,6 @@ public:
 	CSWTestDlg *myswdlg;
 	pdata *patdata[100];
 	void ReadPatFile();
+	void WritePatFile();
 };
 

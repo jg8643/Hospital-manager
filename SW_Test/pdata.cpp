@@ -12,6 +12,12 @@ pdata::pdata(char **a)
 		this->p_data[i] = a[i];
 }
 
+pdata::pdata(CString *a)
+{
+	for (int i = 0; i < 7; i++)
+		this->p_data[i] = a[i];
+}
+
 
 pdata::~pdata()
 {

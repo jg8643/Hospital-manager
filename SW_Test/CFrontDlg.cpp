@@ -39,6 +39,8 @@ BEGIN_MESSAGE_MAP(CFrontDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON7, &CFrontDlg::OnBnClickedButton7)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &CFrontDlg::OnNMDblclkList1)
 	ON_NOTIFY(NM_CLICK, IDC_LIST1, &CFrontDlg::OnNMClickList1)
+	ON_BN_CLICKED(IDC_BUTTON11, &CFrontDlg::OnBnClickedButton11)
+	ON_NOTIFY(NM_CLICK, IDC_LIST2, &CFrontDlg::OnNMClickList2)
 END_MESSAGE_MAP()
 
 
@@ -53,6 +55,8 @@ BOOL CFrontDlg::OnInitDialog()
 	m_combo.AddString(_T("환자번호"));
 	m_combo.SetCurSel(0);
 	
+	GetDlgItem(IDC_BUTTON10)->EnableWindow(FALSE);
+
 	CRect rt1;
 	m_listctrl1.GetWindowRect(&rt1);
 	m_listctrl1.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
@@ -102,13 +106,16 @@ void CFrontDlg::OnBnClickedButton10()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CString str;
-	for (int i = 0; i < 6 ; i++) {
-		pedit[i]->GetWindowText(str);
-		if (str == L"") {
-			AfxMessageBox(L"비었어요");
-			break;
+	pedit[0]->GetWindowText(str);
+	for (int i = 0; i < set->pat->pcount; i++) {
+		if (set->pat->patdata[i]->p_data[0] == str) {
+			for (int j = 1; j < 6; j++) {
+				pedit[j]->GetWindowText(set->pat->patdata[i]->p_data[j]);
+			}
 		}
 	}
+	set->pat->WritePatFile();
+	AfxMessageBox(L"수정되었습니다.");
 }
 
 
@@ -130,8 +137,15 @@ void CFrontDlg::OnBnClickedButton7()
 			}
 		}
 	}
-	else {
-
+	else if(str1 == L"환자번호"){
+		for (int i = 0; i < set->pat->pcount; i++) {
+			if (set->pat->patdata[i]->p_data[0] == str2) {
+				m_listctrl1.InsertItem(i, set->pat->patdata[i]->p_data[0]);
+				m_listctrl1.SetItem(search, 1, LVIF_TEXT, set->pat->patdata[i]->p_data[1], NULL, NULL, NULL, NULL);
+				m_listctrl1.SetItem(search, 2, LVIF_TEXT, set->pat->patdata[i]->p_data[2], NULL, NULL, NULL, NULL);
+				m_listctrl1.SetItem(search++, 3, LVIF_TEXT, set->pat->patdata[i]->p_data[3], NULL, NULL, NULL, NULL);
+			}
+		}
 	}
 }
 
@@ -163,7 +177,36 @@ void CFrontDlg::OnNMClickList1(NMHDR *pNMHDR, LRESULT *pResult)
 			for (int j = 0; j < 6; j++) {
 				pedit[j]->SetWindowText(set->pat->patdata[i]->p_data[j]);
 			}
+			GetDlgItem(IDC_BUTTON10)->EnableWindow(TRUE);
 		}
 	}
+	*pResult = 0;
+}
+
+
+void CFrontDlg::OnBnClickedButton11()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (mark >= 0) {
+		for (int i = 0; i < set->wait_count; i++) {
+			if (set->wait[i] == m_listctrl2.GetItemText(mark, 0)) {
+				for (int j = i; j < set->wait_count; j++) {
+					set->wait[j] = set->wait[j + 1];
+				}
+				break;
+			}
+		}
+		set->wait_count--;
+		m_listctrl2.DeleteItem(mark);
+	}
+}
+
+
+void CFrontDlg::OnNMClickList2(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	mark = pNMLV->iItem;
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	*pResult = 0;
 }

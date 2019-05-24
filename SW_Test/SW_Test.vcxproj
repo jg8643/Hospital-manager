@@ -191,6 +191,7 @@
     <ClInclude Include="Employee.h" />
     <ClInclude Include="Patient.h" />
     <ClInclude Include="pdata.h" />
+    <ClInclude Include="Prescription.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Setting.h" />
     <ClInclude Include="stdafx.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="Employee.cpp" />
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="pdata.cpp" />
+    <ClCompile Include="Prescription.cpp" />
     <ClCompile Include="Setting.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

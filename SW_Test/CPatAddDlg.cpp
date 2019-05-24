@@ -7,7 +7,7 @@
 #include "afxdialogex.h"
 #include "SW_TestDlg.h"
 #include "Setting.h"
-
+#include "Patient.h"
 // CPatAddDlg 대화 상자
 
 IMPLEMENT_DYNAMIC(CPatAddDlg, CDialogEx)
@@ -47,6 +47,12 @@ BOOL CPatAddDlg::OnInitDialog()
 		pedit[i] = (CEdit*)GetDlgItem(idc_edit[i]);
 	}
 
+	CString str;
+	int last = set->pat->pcount - 1;
+	int num = _ttoi(set->pat->patdata[last]->p_data[0]) + 1;
+	str.Format(_T("%d"), num);
+
+	pedit[0]->SetWindowText(str);
 	
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
@@ -57,11 +63,24 @@ BOOL CPatAddDlg::OnInitDialog()
 	{
 		// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 		CString str;
+		CString temp[10];
+		int blank = 0;
+
 		for (int i = 0; i < 7; i++) {
 			pedit[i]->GetWindowText(str);
 			if (str == L"") {
 				AfxMessageBox(L"비었어요");
+				blank = 1;
 				break;
 			}
+			else {
+				temp[i] = str;
+			}
+		}
+		if (blank == 0) {
+			set->pat->patdata[set->pat->pcount++] = new pdata(temp);
+			set->pat->WritePatFile();
+			AfxMessageBox(L"추가되었습니다.");
+			CDialogEx::OnOK();
 		}
 	}

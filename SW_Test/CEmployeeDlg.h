@@ -34,7 +34,7 @@ public:
 	CEmpTab1Dlg *cet1;
 	CEmpTab2Dlg *cet2;
 	CEmpTab3Dlg *cet3;
-	void SetInformation(int);
+	void SetInformation(int);  
 	void Update();
 	afx_msg void OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnClickedButton10();

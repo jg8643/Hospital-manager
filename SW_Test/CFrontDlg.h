@@ -28,6 +28,7 @@ public:
 	CEdit *pedit[7];
 	int search;
 	int select;
+	int mark;
 	virtual BOOL OnInitDialog();
 	CListCtrl m_listctrl1;
 	CListCtrl m_listctrl2;
@@ -36,4 +37,6 @@ public:
 	afx_msg void OnBnClickedButton7();
 	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMClickList1(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnClickedButton11();
+	afx_msg void OnNMClickList2(NMHDR *pNMHDR, LRESULT *pResult);
 };

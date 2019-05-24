@@ -73,7 +73,6 @@ void CEmpAddDlg::OnBnClickedButton12()
 	CString temp[10];
 	int blank = 0;
 	m_combo.GetLBText(m_combo.GetCurSel(), combo);
-	//combo.Insert(0, L"\n");
 	temp[0] = combo;
 
 	for (int i = 0; i < 9; i++) {

@@ -157,4 +157,15 @@ void CEmployeeDlg::OnBnClickedButton11()
 void CEmployeeDlg::OnBnClickedButton12()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CString str;
+	pedit[0]->GetWindowText(str);
+	for (int i = 0; i < set->emp->ecount; i++) {
+		if (set->emp->empdata[i]->e_data[1] == str) {
+			for (int j = 2; j < 9; j++) {
+				pedit[j]->GetWindowText(set->emp->empdata[i]->e_data[j+1]);
+			}
+		}
+	}
+	set->emp->WriteEmpFile();
+	AfxMessageBox(L"수정되었습니다.");
 }

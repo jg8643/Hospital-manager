@@ -66,7 +66,6 @@ void CEmpTab1Dlg::Delete()
 	if (mark >= 0) {
 		for (int i = 0; i < set->emp->ecount; i++) {
 			if (set->emp->empdata[i]->e_data[1] == m_listctrl.GetItemText(mark, 0)) {
-				
 				for (int j = i; j < set->emp->ecount; j++) {
 					if (!(j == set->emp->ecount - 1)) {
 						temp = _ttoi(set->emp->empdata[j + 1]->e_data[1]) - 1;
