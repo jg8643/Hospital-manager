@@ -30,6 +30,7 @@ void CFrontDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO1, m_combo);
 	DDX_Control(pDX, IDC_LIST1, m_listctrl1);
 	DDX_Control(pDX, IDC_LIST2, m_listctrl2);
+	DDX_Control(pDX, IDC_LIST3, m_listctrl3);
 }
 
 
@@ -73,6 +74,13 @@ BOOL CFrontDlg::OnInitDialog()
 	m_listctrl2.InsertColumn(2, TEXT("성별"), LVCFMT_LEFT, rt2.Width()*0.2);
 	m_listctrl2.InsertColumn(3, TEXT("주민등록번호"), LVCFMT_LEFT, rt2.Width()*0.4);
 
+	CRect rt3;
+	m_listctrl3.GetWindowRect(&rt3);
+	m_listctrl3.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
+	m_listctrl3.InsertColumn(0, TEXT("환자번호"), LVCFMT_LEFT, rt3.Width()*0.2);
+	m_listctrl3.InsertColumn(1, TEXT("이름"), LVCFMT_LEFT, rt3.Width()*0.2);
+	m_listctrl3.InsertColumn(2, TEXT("성별"), LVCFMT_LEFT, rt3.Width()*0.2);
+	m_listctrl3.InsertColumn(3, TEXT("주민등록번호"), LVCFMT_LEFT, rt3.Width()*0.4);
 	int idc_edit[7] = { IDC_EDIT1,IDC_EDIT2,IDC_EDIT3,IDC_EDIT4,IDC_EDIT5,IDC_EDIT6,IDC_EDIT7 };
 	for (int i = 0; i < 7; i++) {
 		pedit[i] = (CEdit*)GetDlgItem(idc_edit[i]);
@@ -85,6 +93,16 @@ BOOL CFrontDlg::OnInitDialog()
 				m_listctrl2.SetItem(i, 1, LVIF_TEXT, set->pat->patdata[j]->p_data[1], NULL, NULL, NULL, NULL);
 				m_listctrl2.SetItem(i, 2, LVIF_TEXT, set->pat->patdata[j]->p_data[2], NULL, NULL, NULL, NULL);
 				m_listctrl2.SetItem(i, 3, LVIF_TEXT, set->pat->patdata[j]->p_data[3], NULL, NULL, NULL, NULL);
+			}
+		}
+	}
+	for (int i = 0; i < set->complet_count; i++) {
+		for (int j = 0; j < set->pat->pcount; j++) {
+			if (set->complet[i] == set->pat->patdata[j]->p_data[0]) {
+				m_listctrl3.InsertItem(i, set->pat->patdata[j]->p_data[0]);
+				m_listctrl3.SetItem(i, 1, LVIF_TEXT, set->pat->patdata[j]->p_data[1], NULL, NULL, NULL, NULL);
+				m_listctrl3.SetItem(i, 2, LVIF_TEXT, set->pat->patdata[j]->p_data[2], NULL, NULL, NULL, NULL);
+				m_listctrl3.SetItem(i, 3, LVIF_TEXT, set->pat->patdata[j]->p_data[3], NULL, NULL, NULL, NULL);
 			}
 		}
 	}

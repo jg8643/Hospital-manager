@@ -191,6 +191,7 @@
     <ClInclude Include="Employee.h" />
     <ClInclude Include="Patient.h" />
     <ClInclude Include="pdata.h" />
+    <ClInclude Include="predata.h" />
     <ClInclude Include="Prescription.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Setting.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="Employee.cpp" />
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="pdata.cpp" />
+    <ClCompile Include="predata.cpp" />
     <ClCompile Include="Prescription.cpp" />
     <ClCompile Include="Setting.cpp" />
     <ClCompile Include="stdafx.cpp">

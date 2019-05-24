@@ -26,9 +26,15 @@ public:
 	CSWTestDlg *myswdlg;
 	CEdit *pedit[8];
 	int select;
+	int mark;
+	int count[5] = { 0 };
 	CListCtrl m_listctrl1;
 	CListCtrl m_listctrl2;
-	CListCtrl m_listctrl3;
 	virtual BOOL OnInitDialog();
 	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnClickedButton9();
+	afx_msg void OnNMDblclkList2(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnClickedButton8();
+	afx_msg void OnNMClickList2(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnClickedButton12();
 };
