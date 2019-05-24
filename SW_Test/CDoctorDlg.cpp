@@ -12,7 +12,7 @@
 // CDoctorDlg 대화 상자
 
 IMPLEMENT_DYNAMIC(CDoctorDlg, CDialogEx)
-
+static CFont m_font1, m_font2;
 CDoctorDlg::CDoctorDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_DIALOG6, pParent)
 {
@@ -39,6 +39,7 @@ BEGIN_MESSAGE_MAP(CDoctorDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON8, &CDoctorDlg::OnBnClickedButton8)
 	ON_NOTIFY(NM_CLICK, IDC_LIST2, &CDoctorDlg::OnNMClickList2)
 	ON_BN_CLICKED(IDC_BUTTON12, &CDoctorDlg::OnBnClickedButton12)
+	ON_BN_CLICKED(IDC_BUTTON13, &CDoctorDlg::OnBnClickedButton13)
 END_MESSAGE_MAP()
 
 
@@ -48,10 +49,34 @@ END_MESSAGE_MAP()
 BOOL CDoctorDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
+	m_font1.CreateFont(40, 15,            // 세로,가로 크기
+		0, 0,
+		FW_HEAVY,    //Font 굵기
+		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, OUT_DEFAULT_PRECIS,
+		DEFAULT_QUALITY, DEFAULT_PITCH,
+		L"맑은 고딕");
+	m_font2.CreateFont(20, 8,            // 세로,가로 크기
+		0, 0,
+		FW_HEAVY,    //Font 굵기
+		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, OUT_DEFAULT_PRECIS,
+		DEFAULT_QUALITY, DEFAULT_PITCH,
+		L"맑은 고딕");
+	int idc_static[2] = { IDC_STATIC1, IDC_STATIC2 };
+	int idc_list[2] = { IDC_LIST1, IDC_LIST2 };
 	int idc_edit[8] = { IDC_EDIT1,IDC_EDIT2 ,IDC_EDIT3 ,IDC_EDIT4 ,IDC_EDIT5 ,IDC_EDIT6 , IDC_EDIT7, IDC_EDIT8};
+	int idc_button[12] = { IDC_BUTTON1,IDC_BUTTON2,IDC_BUTTON3,IDC_BUTTON4,IDC_BUTTON5,IDC_BUTTON6,IDC_BUTTON7,IDC_BUTTON8,IDC_BUTTON9,IDC_BUTTON10,IDC_BUTTON11,IDC_BUTTON12 };
 	for (int i = 0; i < 8; i++) {
 		pedit[i] = (CEdit*)GetDlgItem(idc_edit[i]);
 	}
+	for (int i = 0; i < 2; i++) {
+		GetDlgItem(idc_static[i])->SetFont(&m_font1);
+		GetDlgItem(idc_list[i])->SetFont(&m_font2);
+	}
+	for (int i = 0; i < 12; i++) {
+		GetDlgItem(idc_button[i])->SetFont(&m_font2);
+	}
+	m_font1.Detach();
+	m_font2.Detach();
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
 	CRect rt1;
 	m_listctrl1.GetWindowRect(&rt1);
@@ -64,8 +89,8 @@ BOOL CDoctorDlg::OnInitDialog()
 	CRect rt2;
 	m_listctrl2.GetWindowRect(&rt2);
 	m_listctrl2.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
-	m_listctrl2.InsertColumn(0, TEXT("이름"), LVCFMT_LEFT, rt2.Width()*0.8);
-	m_listctrl2.InsertColumn(1, TEXT("개수"), LVCFMT_LEFT, rt2.Width()*0.2);
+	m_listctrl2.InsertColumn(0, TEXT("이름"), LVCFMT_LEFT, rt2.Width()*0.7);
+	m_listctrl2.InsertColumn(1, TEXT("개수"), LVCFMT_LEFT, rt2.Width()*0.3);
 	m_listctrl2.InsertItem(0, L"붕대");
 	m_listctrl2.InsertItem(1, L"기침약");
 	m_listctrl2.InsertItem(2, L"두통약");
@@ -130,6 +155,16 @@ void CDoctorDlg::OnBnClickedButton9()
 
 	set->wait_count--;
 	m_listctrl1.DeleteItem(select);
+	
+	for (int i = 0; i < 8; i++) {
+		pedit[i]->SetWindowText(L"");
+	}
+
+	for (int i = 0; i < 4; i++) {
+		m_listctrl2.SetItem(i, 1, LVIF_TEXT, L"0", NULL, NULL, NULL, NULL);
+	}
+	mark = -1;
+	select = -1;
 }
 
 
@@ -180,4 +215,10 @@ void CDoctorDlg::OnBnClickedButton12()
 		str.Format(L"%d", temp);
 		m_listctrl2.SetItem(mark, 1, LVIF_TEXT, str, NULL, NULL, NULL, NULL);
 	}
+}
+
+void CDoctorDlg::OnBnClickedButton13()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CDialogEx::OnOK();
 }

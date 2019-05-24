@@ -40,4 +40,5 @@ public:
 	afx_msg void OnBnClickedButton11();
 	afx_msg void OnNMClickList2(NMHDR *pNMHDR, LRESULT *pResult);
 	CListCtrl m_listctrl3;
+	afx_msg void OnBnClickedOk();
 };

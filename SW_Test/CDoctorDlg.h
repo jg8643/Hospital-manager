@@ -37,4 +37,5 @@ public:
 	afx_msg void OnBnClickedButton8();
 	afx_msg void OnNMClickList2(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnClickedButton12();
+	afx_msg void OnBnClickedButton13();
 };

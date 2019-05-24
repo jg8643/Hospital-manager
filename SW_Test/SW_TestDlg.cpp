@@ -16,7 +16,7 @@
 
 
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
-
+static CFont m_font;
 class CAboutDlg : public CDialogEx
 {
 public:
@@ -78,6 +78,13 @@ END_MESSAGE_MAP()
 BOOL CSWTestDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
+	
+	m_font.CreateFont(50, 20,            // 세로,가로 크기
+		0, 0,
+		FW_HEAVY,    //Font 굵기
+		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, OUT_DEFAULT_PRECIS,
+		DEFAULT_QUALITY, DEFAULT_PITCH,
+		L"맑은 고딕");
 
 	// 시스템 메뉴에 "정보..." 메뉴 항목을 추가합니다.
 
@@ -98,7 +105,12 @@ BOOL CSWTestDlg::OnInitDialog()
 			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
 		}
 	}
-
+	CButton *pbtn1 = (CButton*)GetDlgItem(IDC_BUTTON1);
+	CButton *pbtn2 = (CButton*)GetDlgItem(IDC_BUTTON2);
+	CButton *pbtn3 = (CButton*)GetDlgItem(IDC_BUTTON3);
+	pbtn1->SetFont(&m_font, TRUE);
+	pbtn2->SetFont(&m_font, TRUE);
+	pbtn3->SetFont(&m_font, TRUE);
 	// 이 대화 상자의 아이콘을 설정합니다.  응용 프로그램의 주 창이 대화 상자가 아닐 경우에는
 	//  프레임워크가 이 작업을 자동으로 수행합니다.
 	SetIcon(m_hIcon, TRUE);			// 큰 아이콘을 설정합니다.

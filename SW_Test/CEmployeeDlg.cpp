@@ -15,12 +15,14 @@
 // CEmployeeDlg 대화 상자
 
 IMPLEMENT_DYNAMIC(CEmployeeDlg, CDialogEx)
-
+CFont m_font1, m_font2, m_font3;
 CEmployeeDlg::CEmployeeDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_DIALOG1, pParent)
 {
 	myswdlg = (CSWTestDlg*)::AfxGetMainWnd();
 	set = myswdlg->set;
+
+	
 	
 }
 
@@ -40,6 +42,8 @@ BEGIN_MESSAGE_MAP(CEmployeeDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON10, &CEmployeeDlg::OnBnClickedButton10)
 	ON_BN_CLICKED(IDC_BUTTON11, &CEmployeeDlg::OnBnClickedButton11)
 	ON_BN_CLICKED(IDC_BUTTON12, &CEmployeeDlg::OnBnClickedButton12)
+	ON_BN_CLICKED(IDC_BUTTON7, &CEmployeeDlg::OnBnClickedButton7)
+	ON_BN_CLICKED(IDC_BUTTON8, &CEmployeeDlg::OnBnClickedButton8)
 END_MESSAGE_MAP()
 
 
@@ -50,13 +54,49 @@ BOOL CEmployeeDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 	CString str;
+	
+	m_font1.CreateFont(40, 15,            // 세로,가로 크기
+		0, 0,
+		FW_HEAVY,    //Font 굵기
+		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, OUT_DEFAULT_PRECIS,
+		DEFAULT_QUALITY, DEFAULT_PITCH,
+		L"맑은 고딕");
+	m_font2.CreateFont(30, 10,            // 세로,가로 크기
+		0, 0,
+		FW_HEAVY,    //Font 굵기
+		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, OUT_DEFAULT_PRECIS,
+		DEFAULT_QUALITY, DEFAULT_PITCH,
+		L"맑은 고딕");
+	m_font3.CreateFont(20, 8,            // 세로,가로 크기
+		0, 0,
+		FW_HEAVY,    //Font 굵기
+		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, OUT_DEFAULT_PRECIS,
+		DEFAULT_QUALITY, DEFAULT_PITCH,
+		L"맑은 고딕");
 
+	GetDlgItem(IDC_STATIC)->SetFont(&m_font1);
+	GetDlgItem(IDC_STATIC1)->SetFont(&m_font1);
+	GetDlgItem(IDC_TAB1)->SetFont(&m_font3);
+
+	int idc_button[12] = { IDC_BUTTON1,IDC_BUTTON2,IDC_BUTTON3,IDC_BUTTON4,IDC_BUTTON5,IDC_BUTTON6,IDC_BUTTON7,IDC_BUTTON8,IDC_BUTTON9, IDC_BUTTON10, IDC_BUTTON11, IDC_BUTTON12 };
 	int idc_edit[9] = { IDC_EDIT1, IDC_EDIT2, IDC_EDIT3, IDC_EDIT4, IDC_EDIT5, IDC_EDIT6, IDC_EDIT7, IDC_EDIT8,IDC_EDIT9 };
+	
+	for (int i = 0; i < 9; i++) {
+		GetDlgItem(idc_button[i])->SetFont(&m_font2);
+		GetDlgItem(idc_edit[i])->SetFont(&m_font2);
+	}
+	for (int i = 9; i < 12; i++) {
+		GetDlgItem(idc_button[i])->SetFont(&m_font2);
+	}
+	m_font1.Detach();
+	m_font2.Detach();
+	m_font3.Detach();
 	for (int i = 0; i < 9; i++) {
 		pedit[i] = (CEdit*)GetDlgItem(idc_edit[i]);
 	}
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
-	
+	GetDlgItem(IDC_BUTTON12)->EnableWindow(FALSE);
+
 	m_tabctrl.InsertItem(0, _T("의사"));
 	m_tabctrl.InsertItem(1, _T("간호사"));
 	m_tabctrl.InsertItem(2, _T("기술스태프"));
@@ -93,6 +133,7 @@ void CEmployeeDlg::SetInformation(int idx)
 	for (int i = 0; i < 9; i++) {
 		pedit[i]->SetWindowText(set->emp->empdata[idx]->e_data[i + 1]);
 	}
+	GetDlgItem(IDC_BUTTON12)->EnableWindow(TRUE);
 }
 
 void CEmployeeDlg::Update()
@@ -101,7 +142,6 @@ void CEmployeeDlg::Update()
 	cet2->Update();
 	cet3->Update();
 }
-
 void CEmployeeDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -168,4 +208,16 @@ void CEmployeeDlg::OnBnClickedButton12()
 	}
 	set->emp->WriteEmpFile();
 	AfxMessageBox(L"수정되었습니다.");
+}
+
+
+void CEmployeeDlg::OnBnClickedButton7()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+
+void CEmployeeDlg::OnBnClickedButton8()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
