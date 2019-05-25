@@ -2,11 +2,10 @@
 class edata
 {
 public:
-	edata();
 	edata(char **);
 	edata(CString *);
 	~edata();
 
-	CString e_data[10];
+	CString e_data[10];   // 직원 상세 정보
 };
 

@@ -11,7 +11,7 @@
 // CPatAddDlg 대화 상자
 
 IMPLEMENT_DYNAMIC(CPatAddDlg, CDialogEx)
-
+static CFont m_font;
 CPatAddDlg::CPatAddDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_DIALOG8, pParent)
 {
@@ -40,13 +40,27 @@ END_MESSAGE_MAP()
 BOOL CPatAddDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-
+	HICON hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME)); //icon 변경
+	this->SetIcon(hIcon, FALSE);
+	m_font.CreateFont(20, 8,            // 세로,가로 크기
+		0, 0,
+		FW_HEAVY,    //Font 굵기
+		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, OUT_DEFAULT_PRECIS,
+		DEFAULT_QUALITY, DEFAULT_PITCH,
+		L"맑은 고딕");
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
+	int idc_button[8] = { IDC_BUTTON1,IDC_BUTTON2,IDC_BUTTON3,IDC_BUTTON4,IDC_BUTTON5,IDC_BUTTON6,IDC_BUTTON7,IDC_BUTTON8 };
 	int idc_edit[7] = { IDC_EDIT1,IDC_EDIT2,IDC_EDIT3,IDC_EDIT4,IDC_EDIT5,IDC_EDIT6,IDC_EDIT7 };
 	for (int i = 0; i < 7; i++) {
 		pedit[i] = (CEdit*)GetDlgItem(idc_edit[i]);
 	}
-
+	for (int i = 0; i < 8; i++) {
+		GetDlgItem(idc_button[i])->SetFont(&m_font);
+	}
+	for (int i = 0; i < 7; i++) {
+		GetDlgItem(idc_edit[i])->SetFont(&m_font);
+	}
+	m_font.Detach();
 	CString str;
 	int last = set->pat->pcount - 1;
 	int num = _ttoi(set->pat->patdata[last]->p_data[0]) + 1;

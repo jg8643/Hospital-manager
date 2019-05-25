@@ -18,13 +18,12 @@ Employee::Employee(Setting *set)
 Employee::~Employee()
 {
 }
-
+// 직원 파일 읽기
 void Employee::ReadEmpFile()
 {
 	char buf[1024];
 	char *temp[10];
 	FILE *fin = fopen("employee.txt", "r");
-
 
 	while (!feof(fin)) {
 		fgets(buf, sizeof(buf), fin);
@@ -34,12 +33,10 @@ void Employee::ReadEmpFile()
 			temp[i] = strtok(NULL, "|\n");
 		}
 		empdata[ecount++] = new edata(temp);
-		
 	}
-
 	fclose(fin);
 }
-
+// 직원 파일 쓰기
 void Employee::WriteEmpFile()
 {
 	CStringA charstr[10];

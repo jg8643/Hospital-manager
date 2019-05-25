@@ -41,4 +41,6 @@ public:
 	afx_msg void OnNMClickList2(NMHDR *pNMHDR, LRESULT *pResult);
 	CListCtrl m_listctrl3;
 	afx_msg void OnBnClickedOk();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

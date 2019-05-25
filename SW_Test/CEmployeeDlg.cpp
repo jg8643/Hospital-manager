@@ -22,8 +22,6 @@ CEmployeeDlg::CEmployeeDlg(CWnd* pParent /*=nullptr*/)
 	myswdlg = (CSWTestDlg*)::AfxGetMainWnd();
 	set = myswdlg->set;
 
-	
-	
 }
 
 CEmployeeDlg::~CEmployeeDlg()
@@ -42,8 +40,8 @@ BEGIN_MESSAGE_MAP(CEmployeeDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON10, &CEmployeeDlg::OnBnClickedButton10)
 	ON_BN_CLICKED(IDC_BUTTON11, &CEmployeeDlg::OnBnClickedButton11)
 	ON_BN_CLICKED(IDC_BUTTON12, &CEmployeeDlg::OnBnClickedButton12)
-	ON_BN_CLICKED(IDC_BUTTON7, &CEmployeeDlg::OnBnClickedButton7)
-	ON_BN_CLICKED(IDC_BUTTON8, &CEmployeeDlg::OnBnClickedButton8)
+	ON_WM_ERASEBKGND()
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -54,7 +52,12 @@ BOOL CEmployeeDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 	CString str;
-	
+	HICON hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME)); //icon 변경
+	this->SetIcon(hIcon, FALSE);
+
+	int idc_button[12] = { IDC_BUTTON1,IDC_BUTTON2,IDC_BUTTON3,IDC_BUTTON4,IDC_BUTTON5,IDC_BUTTON6,IDC_BUTTON7,IDC_BUTTON8,IDC_BUTTON9, IDC_BUTTON10, IDC_BUTTON11, IDC_BUTTON12 };
+	int idc_edit[9] = { IDC_EDIT1, IDC_EDIT2, IDC_EDIT3, IDC_EDIT4, IDC_EDIT5, IDC_EDIT6, IDC_EDIT7, IDC_EDIT8,IDC_EDIT9 };
+	// 폰트 설정
 	m_font1.CreateFont(40, 15,            // 세로,가로 크기
 		0, 0,
 		FW_HEAVY,    //Font 굵기
@@ -78,9 +81,6 @@ BOOL CEmployeeDlg::OnInitDialog()
 	GetDlgItem(IDC_STATIC1)->SetFont(&m_font1);
 	GetDlgItem(IDC_TAB1)->SetFont(&m_font3);
 
-	int idc_button[12] = { IDC_BUTTON1,IDC_BUTTON2,IDC_BUTTON3,IDC_BUTTON4,IDC_BUTTON5,IDC_BUTTON6,IDC_BUTTON7,IDC_BUTTON8,IDC_BUTTON9, IDC_BUTTON10, IDC_BUTTON11, IDC_BUTTON12 };
-	int idc_edit[9] = { IDC_EDIT1, IDC_EDIT2, IDC_EDIT3, IDC_EDIT4, IDC_EDIT5, IDC_EDIT6, IDC_EDIT7, IDC_EDIT8,IDC_EDIT9 };
-	
 	for (int i = 0; i < 9; i++) {
 		GetDlgItem(idc_button[i])->SetFont(&m_font2);
 		GetDlgItem(idc_edit[i])->SetFont(&m_font2);
@@ -95,8 +95,8 @@ BOOL CEmployeeDlg::OnInitDialog()
 		pedit[i] = (CEdit*)GetDlgItem(idc_edit[i]);
 	}
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
-	GetDlgItem(IDC_BUTTON12)->EnableWindow(FALSE);
-
+	
+	//탭 컨트롤 셋팅
 	m_tabctrl.InsertItem(0, _T("의사"));
 	m_tabctrl.InsertItem(1, _T("간호사"));
 	m_tabctrl.InsertItem(2, _T("기술스태프"));
@@ -122,12 +122,7 @@ BOOL CEmployeeDlg::OnInitDialog()
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
-CEmployeeDlg::CEmployeeDlg(CEmployeeDlg * cempdlg)
-{
-
-}
-
-
+// 직원 더블 클릭 시 정보 셋팅
 void CEmployeeDlg::SetInformation(int idx)
 {
 	for (int i = 0; i < 9; i++) {
@@ -135,13 +130,14 @@ void CEmployeeDlg::SetInformation(int idx)
 	}
 	GetDlgItem(IDC_BUTTON12)->EnableWindow(TRUE);
 }
-
+// 업데이트
 void CEmployeeDlg::Update()
 {
 	cet1->Update();
 	cet2->Update();
 	cet3->Update();
 }
+// 탭 컨트롤 처리
 void CEmployeeDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -168,7 +164,7 @@ void CEmployeeDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 }
 
-
+// 직원 등록 다이얼로그 생성
 void CEmployeeDlg::OnBnClickedButton10()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -178,7 +174,7 @@ void CEmployeeDlg::OnBnClickedButton10()
 	Update();
 }
 
-
+// 삭제
 void CEmployeeDlg::OnBnClickedButton11()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -193,7 +189,7 @@ void CEmployeeDlg::OnBnClickedButton11()
 	Update();
 }
 
-
+// 수정
 void CEmployeeDlg::OnBnClickedButton12()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -201,23 +197,36 @@ void CEmployeeDlg::OnBnClickedButton12()
 	pedit[0]->GetWindowText(str);
 	for (int i = 0; i < set->emp->ecount; i++) {
 		if (set->emp->empdata[i]->e_data[1] == str) {
-			for (int j = 2; j < 9; j++) {
+			for (int j = 1; j < 9; j++) {
 				pedit[j]->GetWindowText(set->emp->empdata[i]->e_data[j+1]);
 			}
 		}
 	}
 	set->emp->WriteEmpFile();
 	AfxMessageBox(L"수정되었습니다.");
+	Update();
 }
 
-
-void CEmployeeDlg::OnBnClickedButton7()
+// 배경
+BOOL CEmployeeDlg::OnEraseBkgnd(CDC* pDC)
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CRect rt;
+	GetClientRect(rt);
+	pDC->FillSolidRect(rt, RGB(255, 255, 255));
+	return TRUE;
+	//return CDialogEx::OnEraseBkgnd(pDC);
 }
 
-
-void CEmployeeDlg::OnBnClickedButton8()
+// 스태틱 배경색
+HBRUSH CEmployeeDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  여기서 DC의 특성을 변경합니다.
+	if (nCtlColor == CTLCOLOR_STATIC){
+		pDC->SetBkColor(RGB(255, 255, 255));
+	}
+	// TODO:  기본값이 적당하지 않으면 다른 브러시를 반환합니다.
+	return hbr;
 }

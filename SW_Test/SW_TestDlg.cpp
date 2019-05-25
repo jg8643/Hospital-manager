@@ -61,15 +61,19 @@ CSWTestDlg::CSWTestDlg(CWnd* pParent /*=nullptr*/)
 void CSWTestDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_MFCBUTTON1, mfcbtn1);
+	DDX_Control(pDX, IDC_MFCBUTTON2, mfcbtn2);
+	DDX_Control(pDX, IDC_MFCBUTTON3, mfcbtn3);
 }
 
 BEGIN_MESSAGE_MAP(CSWTestDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-	ON_BN_CLICKED(IDC_BUTTON1, &CSWTestDlg::OnBnClickedButton1)
-	ON_BN_CLICKED(IDC_BUTTON2, &CSWTestDlg::OnBnClickedButton2)
-	ON_BN_CLICKED(IDC_BUTTON3, &CSWTestDlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_MFCBUTTON1, &CSWTestDlg::OnBnClickedMfcbutton1)
+	ON_BN_CLICKED(IDC_MFCBUTTON2, &CSWTestDlg::OnBnClickedMfcbutton2)
+	ON_BN_CLICKED(IDC_MFCBUTTON3, &CSWTestDlg::OnBnClickedMfcbutton3)
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 
@@ -78,13 +82,14 @@ END_MESSAGE_MAP()
 BOOL CSWTestDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-	
-	m_font.CreateFont(50, 20,            // 세로,가로 크기
-		0, 0,
-		FW_HEAVY,    //Font 굵기
-		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, OUT_DEFAULT_PRECIS,
-		DEFAULT_QUALITY, DEFAULT_PITCH,
-		L"맑은 고딕");
+
+	// 버튼 배경색 처리
+	mfcbtn1.EnableWindowsTheming(FALSE);
+	mfcbtn2.EnableWindowsTheming(FALSE);
+	mfcbtn3.EnableWindowsTheming(FALSE);
+	mfcbtn1.SetFaceColor(RGB(234, 253, 230),true);
+	mfcbtn2.SetFaceColor(RGB(234, 253, 230),true);
+	mfcbtn3.SetFaceColor(RGB(234, 253, 230),true);
 
 	// 시스템 메뉴에 "정보..." 메뉴 항목을 추가합니다.
 
@@ -105,9 +110,19 @@ BOOL CSWTestDlg::OnInitDialog()
 			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
 		}
 	}
-	CButton *pbtn1 = (CButton*)GetDlgItem(IDC_BUTTON1);
-	CButton *pbtn2 = (CButton*)GetDlgItem(IDC_BUTTON2);
-	CButton *pbtn3 = (CButton*)GetDlgItem(IDC_BUTTON3);
+
+	// 글자 변경
+	m_font.CreateFont(50, 20,            // 세로,가로 크기
+		0, 0,
+		FW_HEAVY,    //Font 굵기
+		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, OUT_DEFAULT_PRECIS,
+		DEFAULT_QUALITY, DEFAULT_PITCH,
+		L"맑은 고딕");
+
+	CMFCButton *pbtn1 = (CMFCButton*)GetDlgItem(IDC_MFCBUTTON1);
+	CMFCButton *pbtn2 = (CMFCButton*)GetDlgItem(IDC_MFCBUTTON2);
+	CMFCButton *pbtn3 = (CMFCButton*)GetDlgItem(IDC_MFCBUTTON3);
+
 	pbtn1->SetFont(&m_font, TRUE);
 	pbtn2->SetFont(&m_font, TRUE);
 	pbtn3->SetFont(&m_font, TRUE);
@@ -170,18 +185,17 @@ HCURSOR CSWTestDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-
-
-void CSWTestDlg::OnBnClickedButton1()
+// 직원 관리 다이얼로그 생성
+void CSWTestDlg::OnBnClickedMfcbutton1()
 {
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CEmployeeDlg cempdlg;
 	cempdlg.DoModal();
 	cempdlg.DestroyWindow();
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
 
-
-void CSWTestDlg::OnBnClickedButton2()
+// 프론트데스크 다이얼로그 생성
+void CSWTestDlg::OnBnClickedMfcbutton2()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CFrontDlg cfdlg;
@@ -189,11 +203,21 @@ void CSWTestDlg::OnBnClickedButton2()
 	cfdlg.DestroyWindow();
 }
 
-
-void CSWTestDlg::OnBnClickedButton3()
+// 의사 다이얼로그 생성
+void CSWTestDlg::OnBnClickedMfcbutton3()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CDoctorDlg cdocdlg;
 	cdocdlg.DoModal();
 	cdocdlg.DestroyWindow();
+}
+
+// 배경색
+BOOL CSWTestDlg::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CRect rt;
+	GetClientRect(rt);
+	pDC->FillSolidRect(rt, RGB(255, 255, 255));
+	return TRUE;
 }

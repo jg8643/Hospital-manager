@@ -20,7 +20,6 @@ CEmpTab1Dlg::CEmpTab1Dlg(CWnd* pParent /*=nullptr*/)
 CEmpTab1Dlg::CEmpTab1Dlg(CEmployeeDlg * cempdlg) {
 	myswdlg = (CSWTestDlg*)::AfxGetMainWnd();
 	set = myswdlg->set;
-
 	this->cempdlg = cempdlg;
 	for (int i = 0; i < 9; i++) {
 		this->cempdlg->pedit[i] = cempdlg->pedit[i];
@@ -45,7 +44,7 @@ END_MESSAGE_MAP()
 
 // CEmpTab1Dlg 메시지 처리기
 
-
+// 업데이트
 void CEmpTab1Dlg::Update()
 {
 	m_listctrl.DeleteAllItems();
@@ -59,7 +58,7 @@ void CEmpTab1Dlg::Update()
 		}
 	}
 }
-
+// 삭제
 void CEmpTab1Dlg::Delete()
 {
 	int temp;
@@ -100,6 +99,8 @@ BOOL CEmpTab1Dlg::OnInitDialog()
 	m_font.Detach();
 	select = -1;
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
+
+	//리스트 컨트롤 셋팅
 	CRect rt1;
 	m_listctrl.GetWindowRect(&rt1);
 	m_listctrl.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
@@ -124,7 +125,7 @@ BOOL CEmpTab1Dlg::OnInitDialog()
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
-
+// 직원 더블 클릭 시
 void CEmpTab1Dlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
@@ -141,6 +142,7 @@ void CEmpTab1Dlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 }
 
+// 직원 클릭 시 인덱스 저장
 void CEmpTab1Dlg::OnNMClickList1(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
@@ -150,7 +152,7 @@ void CEmpTab1Dlg::OnNMClickList1(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 }
 
-
+// esc로 탭 다이얼로그가 종료되지 않게 하기위함
 BOOL CEmpTab1Dlg::PreTranslateMessage(MSG* pMsg)
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
@@ -158,3 +160,4 @@ BOOL CEmpTab1Dlg::PreTranslateMessage(MSG* pMsg)
 
 	return CDialogEx::PreTranslateMessage(pMsg);
 }
+

@@ -31,8 +31,12 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedButton1();
-	Setting *set;
-	afx_msg void OnBnClickedButton2();
-	afx_msg void OnBnClickedButton3();
+	Setting *set;     // 데이터 관련 처리 변수
+	CMFCButton mfcbtn1;
+	CMFCButton mfcbtn2;
+	CMFCButton mfcbtn3;
+	afx_msg void OnBnClickedMfcbutton1();
+	afx_msg void OnBnClickedMfcbutton2();
+	afx_msg void OnBnClickedMfcbutton3();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };

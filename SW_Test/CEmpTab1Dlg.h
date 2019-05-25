@@ -28,8 +28,8 @@ public:
 	Setting *set;
 	CSWTestDlg *myswdlg;
 	CListCtrl m_listctrl;
-	int select;
-	int mark;
+	int select;      // 더블클릭 시 인덱스 
+	int mark;        // 클릭 시 인덱스
 	void Update();
 	void Delete();
 	virtual BOOL OnInitDialog();

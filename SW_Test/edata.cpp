@@ -1,12 +1,6 @@
 #include "stdafx.h"
 #include "edata.h"
 
-
-edata::edata()
-{
-}
-
-
 edata::edata(char **a)
 {
 	for (int i = 0; i < 10; i++)

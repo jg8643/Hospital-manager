@@ -10,8 +10,8 @@
 #include "Employee.h"
 #include "CEmployeeDlg.h"
 // CEmpAddDlg 대화 상자
-
 IMPLEMENT_DYNAMIC(CEmpAddDlg, CDialogEx)
+static CFont m_font;
 
 CEmpAddDlg::CEmpAddDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_DIALOG7, pParent)
@@ -43,18 +43,33 @@ END_MESSAGE_MAP()
 BOOL CEmpAddDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-
+	HICON hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME)); //icon 변경
+	this->SetIcon(hIcon, FALSE);
+	m_font.CreateFont(20, 8,            // 세로,가로 크기
+		0, 0,
+		FW_HEAVY,    //Font 굵기
+		FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, OUT_DEFAULT_PRECIS,
+		DEFAULT_QUALITY, DEFAULT_PITCH,
+		L"맑은 고딕");
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.
 	m_combo.AddString(_T("의사"));
 	m_combo.AddString(_T("간호사"));
 	m_combo.AddString(_T("기술스태프"));
 
 	m_combo.SetCurSel(0);
+	int idc_button[11] = { IDC_BUTTON1,IDC_BUTTON2,IDC_BUTTON3,IDC_BUTTON4,IDC_BUTTON5,IDC_BUTTON6,IDC_BUTTON7,IDC_BUTTON8, IDC_BUTTON10, IDC_BUTTON11, IDC_BUTTON12 };
 	int idc_edit[9] = { IDC_EDIT1,IDC_EDIT2,IDC_EDIT3,IDC_EDIT4,IDC_EDIT5,IDC_EDIT6,IDC_EDIT7,IDC_EDIT8,IDC_EDIT9 };
 	for (int i = 0; i < 9; i++) {
 		pedit[i] = (CEdit*)GetDlgItem(idc_edit[i]);
 	}
-
+	for (int i = 0; i < 11; i++) {
+		GetDlgItem(idc_button[i])->SetFont(&m_font);
+	}
+	for (int i = 0; i < 9; i++) {
+		GetDlgItem(idc_edit[i])->SetFont(&m_font);
+	}
+	GetDlgItem(IDC_COMBO1)->SetFont(&m_font);
+	m_font.Detach();
 	CString str;
 	int last = set->emp->ecount -1 ;
 	int num = _ttoi(set->emp->empdata[last]->e_data[1]) + 1;

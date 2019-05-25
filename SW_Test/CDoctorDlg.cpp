@@ -40,6 +40,8 @@ BEGIN_MESSAGE_MAP(CDoctorDlg, CDialogEx)
 	ON_NOTIFY(NM_CLICK, IDC_LIST2, &CDoctorDlg::OnNMClickList2)
 	ON_BN_CLICKED(IDC_BUTTON12, &CDoctorDlg::OnBnClickedButton12)
 	ON_BN_CLICKED(IDC_BUTTON13, &CDoctorDlg::OnBnClickedButton13)
+	ON_WM_ERASEBKGND()
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -49,6 +51,8 @@ END_MESSAGE_MAP()
 BOOL CDoctorDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
+	HICON hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME)); //icon 변경
+	this->SetIcon(hIcon, FALSE);
 	m_font1.CreateFont(40, 15,            // 세로,가로 크기
 		0, 0,
 		FW_HEAVY,    //Font 굵기
@@ -221,4 +225,28 @@ void CDoctorDlg::OnBnClickedButton13()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CDialogEx::OnOK();
+}
+
+
+BOOL CDoctorDlg::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CRect rt;
+	GetClientRect(rt);
+	pDC->FillSolidRect(rt, RGB(255, 255, 255));
+	return TRUE;
+	//return CDialogEx::OnEraseBkgnd(pDC);
+}
+
+
+HBRUSH CDoctorDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  여기서 DC의 특성을 변경합니다.
+	if (nCtlColor == CTLCOLOR_STATIC) {
+		pDC->SetBkColor(RGB(255, 255, 255));
+	}
+	// TODO:  기본값이 적당하지 않으면 다른 브러시를 반환합니다.
+	return hbr;
 }
