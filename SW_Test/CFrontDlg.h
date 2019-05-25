@@ -29,6 +29,8 @@ public:
 	int search;
 	int select;
 	int mark;
+	int patmark;
+	void Update();
 	virtual BOOL OnInitDialog();
 	CListCtrl m_listctrl1;
 	CListCtrl m_listctrl2;
@@ -43,4 +45,6 @@ public:
 	afx_msg void OnBnClickedOk();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	afx_msg void OnBnClickedButton8();
+	afx_msg void OnNMClickList3(NMHDR *pNMHDR, LRESULT *pResult);
 };

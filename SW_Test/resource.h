@@ -16,6 +16,7 @@
 #define IDD_DIALOG7                     142
 #define IDD_DIALOG8                     144
 #define IDI_ICON1                       147
+#define IDD_DIALOG9                     148
 #define IDC_BUTTON1                     1000
 #define IDC_BUTTON2                     1001
 #define IDC_BUTTON3                     1002
@@ -50,14 +51,23 @@
 #define IDC_MFCBUTTON1                  1034
 #define IDC_MFCBUTTON2                  1035
 #define IDC_MFCBUTTON3                  1036
+#define IDC_MFCBUTTON4                  1038
+#define IDC_MFCBUTTON5                  1039
+#define IDC_MFCBUTTON6                  1040
+#define IDC_MFCBUTTON7                  1041
+#define IDC_MFCBUTTON8                  1043
+#define IDC_MFCBUTTON9                  1044
+#define IDC_MFCBUTTON10                 1045
+#define IDC_MFCBUTTON12                 1046
+#define IDC_MFCBUTTON11                 1046
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        148
+#define _APS_NEXT_RESOURCE_VALUE        151
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1037
+#define _APS_NEXT_CONTROL_VALUE         1047
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

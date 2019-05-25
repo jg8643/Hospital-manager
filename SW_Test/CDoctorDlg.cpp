@@ -35,7 +35,6 @@ void CDoctorDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CDoctorDlg, CDialogEx)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &CDoctorDlg::OnNMDblclkList1)
 	ON_BN_CLICKED(IDC_BUTTON9, &CDoctorDlg::OnBnClickedButton9)
-	ON_NOTIFY(NM_DBLCLK, IDC_LIST2, &CDoctorDlg::OnNMDblclkList2)
 	ON_BN_CLICKED(IDC_BUTTON8, &CDoctorDlg::OnBnClickedButton8)
 	ON_NOTIFY(NM_CLICK, IDC_LIST2, &CDoctorDlg::OnNMClickList2)
 	ON_BN_CLICKED(IDC_BUTTON12, &CDoctorDlg::OnBnClickedButton12)
@@ -134,7 +133,7 @@ void CDoctorDlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 }
 
-
+// 진료 완료
 void CDoctorDlg::OnBnClickedButton9()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -151,7 +150,7 @@ void CDoctorDlg::OnBnClickedButton9()
 	}
 	set->pre->CreatePre(temp, str);
 
-	for (int i = 0; i < set->wait_count; i++) {
+	for (int i = select; i < set->wait_count; i++) {
 		set->wait[i] = set->wait[i + 1];
 	}
 	
@@ -172,32 +171,7 @@ void CDoctorDlg::OnBnClickedButton9()
 }
 
 
-void CDoctorDlg::OnNMDblclkList2(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-	/*
-	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-	mark = pNMLV->iItem;
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	CString str1;
-	str1 = m_listctrl2.GetItemText(mark,0);
-	*/
-	*pResult = 0;
-}
-
-
-void CDoctorDlg::OnBnClickedButton8()
-{
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	int temp;
-	CString str;
-	str = m_listctrl2.GetItemText(mark, 1);
-	temp = _ttoi(str) + 1;
-	str.Format(L"%d", temp);
-	m_listctrl2.SetItem(mark, 1, LVIF_TEXT, str, NULL, NULL, NULL, NULL);
-}
-
-
+// 약재목록 클릭 시
 void CDoctorDlg::OnNMClickList2(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
@@ -208,6 +182,18 @@ void CDoctorDlg::OnNMClickList2(NMHDR *pNMHDR, LRESULT *pResult)
 }
 
 
+// +버튼
+void CDoctorDlg::OnBnClickedButton8()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	int temp;
+	CString str;
+	str = m_listctrl2.GetItemText(mark, 1);
+	temp = _ttoi(str) + 1;
+	str.Format(L"%d", temp);
+	m_listctrl2.SetItem(mark, 1, LVIF_TEXT, str, NULL, NULL, NULL, NULL);
+}
+// -버튼
 void CDoctorDlg::OnBnClickedButton12()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -227,7 +213,7 @@ void CDoctorDlg::OnBnClickedButton13()
 	CDialogEx::OnOK();
 }
 
-
+// 배경
 BOOL CDoctorDlg::OnEraseBkgnd(CDC* pDC)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
@@ -235,10 +221,9 @@ BOOL CDoctorDlg::OnEraseBkgnd(CDC* pDC)
 	GetClientRect(rt);
 	pDC->FillSolidRect(rt, RGB(255, 255, 255));
 	return TRUE;
-	//return CDialogEx::OnEraseBkgnd(pDC);
 }
 
-
+// 글자 배경
 HBRUSH CDoctorDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);

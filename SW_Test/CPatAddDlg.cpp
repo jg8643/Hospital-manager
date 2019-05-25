@@ -31,6 +31,7 @@ void CPatAddDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CPatAddDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON8, &CPatAddDlg::OnBnClickedButton8)
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 
@@ -97,4 +98,14 @@ BOOL CPatAddDlg::OnInitDialog()
 			AfxMessageBox(L"추가되었습니다.");
 			CDialogEx::OnOK();
 		}
+	}
+
+
+	BOOL CPatAddDlg::OnEraseBkgnd(CDC* pDC)
+	{
+		// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+		CRect rt;
+		GetClientRect(rt);
+		pDC->FillSolidRect(rt, RGB(255, 255, 255));
+		return TRUE;
 	}

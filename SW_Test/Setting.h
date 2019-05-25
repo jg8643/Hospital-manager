@@ -16,5 +16,6 @@ public:
 	CString complet[100];     // 완료리스트(환자)
 	int wait_count;           // 대기 수
 	int complet_count;        // 완료 수
+	CString pat_num;          // 처방전 클릭 시 진료 완료 환자의 환자번호
 };
 

@@ -9,6 +9,8 @@
 #include "Setting.h"
 #include "Patient.h"
 #include "CPatAddDlg.h"
+#include "CPreDlg.h"
+#include "Prescription.h"
 // CFrontDlg 대화 상자
 
 IMPLEMENT_DYNAMIC(CFrontDlg, CDialogEx)
@@ -45,11 +47,28 @@ BEGIN_MESSAGE_MAP(CFrontDlg, CDialogEx)
 	ON_BN_CLICKED(IDOK, &CFrontDlg::OnBnClickedOk)
 	ON_WM_ERASEBKGND()
 	ON_WM_CTLCOLOR()
+	ON_BN_CLICKED(IDC_BUTTON8, &CFrontDlg::OnBnClickedButton8)
+	ON_NOTIFY(NM_CLICK, IDC_LIST3, &CFrontDlg::OnNMClickList3)
 END_MESSAGE_MAP()
 
 
 // CFrontDlg 메시지 처리기
 
+
+void CFrontDlg::Update()
+{
+	m_listctrl3.DeleteAllItems();
+	for (int i = 0; i < set->complet_count; i++) {
+		for (int j = 0; j < set->pat->pcount; j++) {
+			if (set->complet[i] == set->pat->patdata[j]->p_data[0]) {
+				m_listctrl3.InsertItem(i, set->pat->patdata[j]->p_data[0]);
+				m_listctrl3.SetItem(i, 1, LVIF_TEXT, set->pat->patdata[j]->p_data[1], NULL, NULL, NULL, NULL);
+				m_listctrl3.SetItem(i, 2, LVIF_TEXT, set->pat->patdata[j]->p_data[2], NULL, NULL, NULL, NULL);
+				m_listctrl3.SetItem(i, 3, LVIF_TEXT, set->pat->patdata[j]->p_data[3], NULL, NULL, NULL, NULL);
+			}
+		}
+	}
+}
 
 BOOL CFrontDlg::OnInitDialog()
 {
@@ -141,6 +160,11 @@ BOOL CFrontDlg::OnInitDialog()
 			}
 		}
 	}
+	
+	if(set->pre->tcount == 0)
+		GetDlgItem(IDC_BUTTON8)->EnableWindow(FALSE);
+	else
+		GetDlgItem(IDC_BUTTON8)->EnableWindow(TRUE);
 	return FALSE;  // return TRUE unless you set the focus to a control
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
@@ -293,4 +317,25 @@ HBRUSH CFrontDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	}
 	// TODO:  기본값이 적당하지 않으면 다른 브러시를 반환합니다.
 	return hbr;
+}
+
+// 처방전
+void CFrontDlg::OnBnClickedButton8()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CPreDlg cpredlg;
+	cpredlg.DoModal();
+	cpredlg.DestroyWindow();
+	Update();
+}
+
+
+void CFrontDlg::OnNMClickList3(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	patmark = pNMLV->iItem;
+	set->pat_num = m_listctrl3.GetItemText(patmark, 0);
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	*pResult = 0;
 }

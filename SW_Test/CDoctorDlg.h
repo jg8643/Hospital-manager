@@ -33,7 +33,6 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnClickedButton9();
-	afx_msg void OnNMDblclkList2(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnClickedButton8();
 	afx_msg void OnNMClickList2(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnClickedButton12();

@@ -75,6 +75,9 @@
     <ClInclude Include="predata.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="CPreDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SW_Test.cpp">
@@ -129,6 +132,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="predata.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CPreDlg.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

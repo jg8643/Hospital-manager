@@ -42,6 +42,7 @@ BEGIN_MESSAGE_MAP(CEmployeeDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON12, &CEmployeeDlg::OnBnClickedButton12)
 	ON_WM_ERASEBKGND()
 	ON_WM_CTLCOLOR()
+	ON_BN_CLICKED(IDOK, &CEmployeeDlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -229,4 +230,11 @@ HBRUSH CEmployeeDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	}
 	// TODO:  기본값이 적당하지 않으면 다른 브러시를 반환합니다.
 	return hbr;
+}
+
+
+void CEmployeeDlg::OnBnClickedOk()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CDialogEx::OnOK();
 }

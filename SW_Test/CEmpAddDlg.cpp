@@ -34,6 +34,7 @@ void CEmpAddDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CEmpAddDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON12, &CEmpAddDlg::OnBnClickedButton12)
 	ON_BN_CLICKED(IDOK, &CEmpAddDlg::OnBnClickedOk)
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 
@@ -120,4 +121,14 @@ void CEmpAddDlg::OnBnClickedOk()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CDialogEx::OnOK();
+}
+
+
+BOOL CEmpAddDlg::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CRect rt;
+	GetClientRect(rt);
+	pDC->FillSolidRect(rt, RGB(255, 255, 255));
+	return TRUE;
 }

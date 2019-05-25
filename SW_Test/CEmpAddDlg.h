@@ -29,4 +29,5 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedButton12();
 	afx_msg void OnBnClickedOk();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
