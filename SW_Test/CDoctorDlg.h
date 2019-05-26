@@ -32,11 +32,11 @@ public:
 	CListCtrl m_listctrl2;
 	virtual BOOL OnInitDialog();
 	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnClickedButton9();
-	afx_msg void OnBnClickedButton8();
+	afx_msg void OnBnClickedButton9();      // 진료 완료
+	afx_msg void OnBnClickedButton8();      // +버튼
 	afx_msg void OnNMClickList2(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnClickedButton12();
-	afx_msg void OnBnClickedButton13();
+	afx_msg void OnBnClickedButton12();     // -버튼
+	afx_msg void OnBnClickedButton13();     // 확인
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

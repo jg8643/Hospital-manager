@@ -15,6 +15,7 @@ Patient::Patient(Setting *set)
 Patient::~Patient()
 {
 }
+// 환자 파일 읽기
 void Patient::ReadPatFile() {
 	char buf[1024];
 	char *temp[10];
@@ -34,7 +35,7 @@ void Patient::ReadPatFile() {
 
 	fclose(fin);
 }
-
+// 환자 파일 쓰기
 void Patient::WritePatFile()
 {
 	CStringA charstr[7];

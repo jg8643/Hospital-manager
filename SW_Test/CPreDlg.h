@@ -25,8 +25,6 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
-	afx_msg void OnDestroy();
-	afx_msg void OnPaint();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	CMFCButton mbtn1;
 	CMFCButton mbtn2;
@@ -43,4 +41,5 @@ public:
 	CMFCButton mbtn11;
 	afx_msg void OnBnClickedMfcbutton11();
 	CListCtrl m_listctrl2;
+	afx_msg void OnDestroy();
 };

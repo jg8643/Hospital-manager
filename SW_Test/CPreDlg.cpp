@@ -46,10 +46,9 @@ void CPreDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CPreDlg, CDialogEx)
 	ON_WM_ERASEBKGND()
-	ON_WM_DESTROY()
-	ON_WM_PAINT()
 	ON_WM_CTLCOLOR()
 	ON_BN_CLICKED(IDC_MFCBUTTON11, &CPreDlg::OnBnClickedMfcbutton11)
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -143,7 +142,7 @@ BOOL CPreDlg::OnInitDialog()
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
-
+// 배경
 BOOL CPreDlg::OnEraseBkgnd(CDC* pDC)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
@@ -152,23 +151,6 @@ BOOL CPreDlg::OnEraseBkgnd(CDC* pDC)
 	pDC->FillSolidRect(rt, RGB(255, 255, 255));
 	return TRUE;
 }
-
-
-void CPreDlg::OnDestroy()
-{
-	CDialogEx::OnDestroy();
-
-	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
-}
-
-
-void CPreDlg::OnPaint()
-{
-	CPaintDC dc(this); // device context for painting
-					   // TODO: 여기에 메시지 처리기 코드를 추가합니다.
-					   // 그리기 메시지에 대해서는 CDialogEx::OnPaint()을(를) 호출하지 마십시오.
-}
-
 
 HBRUSH CPreDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
@@ -181,8 +163,7 @@ HBRUSH CPreDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	// TODO:  기본값이 적당하지 않으면 다른 브러시를 반환합니다.
 	return hbr;
 }
-
-
+// 확인
 void CPreDlg::OnBnClickedMfcbutton11()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -195,4 +176,19 @@ void CPreDlg::OnBnClickedMfcbutton11()
 	}
 	set->complet_count--;
 	CDialogEx::OnOK();
+}
+
+// 다이얼로그가 종료되었을 때
+void CPreDlg::OnDestroy()
+{
+	CDialogEx::OnDestroy();
+	for (int i = 0; i < set->pre->tcount; i++) {
+		set->pre->pre_data[i] = set->pre->pre_data[i + 1];
+	}
+	set->pre->tcount--;
+	for (int i = 0; i < set->complet_count; i++) {
+		set->complet[i] = set->complet[i + 1];
+	}
+	set->complet_count--;
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
 }

@@ -81,7 +81,7 @@ BOOL CEmpAddDlg::OnInitDialog()
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
-
+// 등록 버튼
 void CEmpAddDlg::OnBnClickedButton12()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -93,8 +93,9 @@ void CEmpAddDlg::OnBnClickedButton12()
 
 	for (int i = 0; i < 9; i++) {
 		pedit[i]->GetWindowText(str);
+		// Edit이 비었을 때
 		if (str == L"") {
-			AfxMessageBox(L"비었어요");
+			AfxMessageBox(L"비었습니다.");
 			blank = 1;
 			break;
 		}
@@ -103,9 +104,9 @@ void CEmpAddDlg::OnBnClickedButton12()
 		}
 	}
 	if (blank == 0) {
-		if (combo == L"\n의사")
+		if (combo == L"의사")
 			set->emp->dcount++;
-		else if (combo == L"\n간호사")
+		else if (combo == L"간호사")
 			set->emp->ncount++;
 		else
 			set->emp->scount++;
@@ -116,14 +117,14 @@ void CEmpAddDlg::OnBnClickedButton12()
 	}
 }
 
-
+// 확인
 void CEmpAddDlg::OnBnClickedOk()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CDialogEx::OnOK();
 }
 
-
+// 배경
 BOOL CEmpAddDlg::OnEraseBkgnd(CDC* pDC)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.

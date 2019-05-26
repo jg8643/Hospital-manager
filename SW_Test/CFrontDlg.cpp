@@ -169,7 +169,7 @@ BOOL CFrontDlg::OnInitDialog()
 				  // 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
-
+// 환자등록
 void CFrontDlg::OnBnClickedButton9()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -178,7 +178,7 @@ void CFrontDlg::OnBnClickedButton9()
 	cpatadddlg.DestroyWindow();
 }
 
-
+// 수정
 void CFrontDlg::OnBnClickedButton10()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -195,7 +195,7 @@ void CFrontDlg::OnBnClickedButton10()
 	AfxMessageBox(L"수정되었습니다.");
 }
 
-
+// 검색 버튼
 void CFrontDlg::OnBnClickedButton7()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -226,7 +226,7 @@ void CFrontDlg::OnBnClickedButton7()
 	}
 }
 
-
+// 검색 된 환자 더블클릭
 void CFrontDlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
@@ -242,7 +242,7 @@ void CFrontDlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 }
 
-
+// 검색 된 환자 클릭
 void CFrontDlg::OnNMClickList1(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
@@ -260,7 +260,7 @@ void CFrontDlg::OnNMClickList1(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 }
 
-
+// 삭제
 void CFrontDlg::OnBnClickedButton11()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
@@ -278,7 +278,7 @@ void CFrontDlg::OnBnClickedButton11()
 	}
 }
 
-
+// 대기리스트 환자 클릭
 void CFrontDlg::OnNMClickList2(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
@@ -295,7 +295,7 @@ void CFrontDlg::OnBnClickedOk()
 	CDialogEx::OnOK();
 }
 
-
+// 배경
 BOOL CFrontDlg::OnEraseBkgnd(CDC* pDC)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
@@ -329,7 +329,7 @@ void CFrontDlg::OnBnClickedButton8()
 	Update();
 }
 
-
+// 진료 완료 환자 클릭
 void CFrontDlg::OnNMClickList3(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);

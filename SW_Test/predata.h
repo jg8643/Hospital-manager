@@ -6,8 +6,8 @@ public:
 	predata(CString *, CString(*str)[2]);
 	~predata();
 
-	CString patnum;
-	CString treat;
-	CString medication[100][2];
+	CString patnum;       // 진료 완료 환자 번호
+	CString treat;        // 진료내용
+	CString medication[100][2];    // 약재 처방
 };
 

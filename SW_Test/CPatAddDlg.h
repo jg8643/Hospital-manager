@@ -26,6 +26,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
-	afx_msg void OnBnClickedButton8();
+	afx_msg void OnBnClickedButton8();     // 등록
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };

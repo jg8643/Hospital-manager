@@ -34,17 +34,17 @@ public:
 	virtual BOOL OnInitDialog();
 	CListCtrl m_listctrl1;
 	CListCtrl m_listctrl2;
-	afx_msg void OnBnClickedButton9();
-	afx_msg void OnBnClickedButton10();
-	afx_msg void OnBnClickedButton7();
+	afx_msg void OnBnClickedButton9();   // 환자 등록
+	afx_msg void OnBnClickedButton10();  // 수정
+	afx_msg void OnBnClickedButton7();   // 검색
 	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMClickList1(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnClickedButton11();
+	afx_msg void OnBnClickedButton11();  // 삭제
 	afx_msg void OnNMClickList2(NMHDR *pNMHDR, LRESULT *pResult);
 	CListCtrl m_listctrl3;
 	afx_msg void OnBnClickedOk();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-	afx_msg void OnBnClickedButton8();
+	afx_msg void OnBnClickedButton8();   // 처방전
 	afx_msg void OnNMClickList3(NMHDR *pNMHDR, LRESULT *pResult);
 };

@@ -9,8 +9,8 @@ public:
 	~Prescription();
 	Setting *set;
 	CSWTestDlg *myswdlg;
-	int tcount;
-	predata *pre_data[100];
+	int tcount;            // 진료 완료 환자 수
+	predata *pre_data[100];   // 진료 완료 환자 
 	void CreatePre(CString *, CString (*str)[2]);
 };
 

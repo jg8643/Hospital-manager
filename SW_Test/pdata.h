@@ -7,6 +7,6 @@ public:
 	pdata(CString *);
 	~pdata();
 
-	CString p_data[7];
+	CString p_data[7];    // 환자 정보
 };
 

@@ -8,11 +8,11 @@ public:
 	Patient(Setting *);
 	~Patient();
 
-	int pcount;
+	int pcount;     // 환자 수
 	Setting *set;
 	CSWTestDlg *myswdlg;
-	pdata *patdata[100];
-	void ReadPatFile();
-	void WritePatFile();
+	pdata *patdata[100];    // 환자
+	void ReadPatFile();     // 환자 파일 읽기
+	void WritePatFile();    // 환자 파일 쓰기
 };
 
