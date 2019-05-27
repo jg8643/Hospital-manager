@@ -27,7 +27,6 @@ public:
 	CEdit *pedit[8];
 	int select;
 	int mark;
-	int count[5] = { 0 };
 	CListCtrl m_listctrl1;
 	CListCtrl m_listctrl2;
 	virtual BOOL OnInitDialog();

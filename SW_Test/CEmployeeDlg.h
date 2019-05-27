@@ -26,7 +26,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
-	CEmployeeDlg(CEmployeeDlg*);
 	Setting *set;
 	CSWTestDlg *myswdlg;
 	CEdit  *pedit[9];
@@ -37,9 +36,9 @@ public:
 	void SetInformation(int);  // 직원 탭에서 직원 더블 클릭 시 직원 정보 셋팅
 	void Update();             // 탭컨트롤 정보 업데이트
 	afx_msg void OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnClickedButton10();
-	afx_msg void OnBnClickedButton11();
-	afx_msg void OnBnClickedButton12();
+	afx_msg void OnBnClickedButton10();   // 추가
+	afx_msg void OnBnClickedButton11();   // 삭제
+	afx_msg void OnBnClickedButton12();   // 수정
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg void OnBnClickedOk();

@@ -78,6 +78,9 @@ BOOL CDoctorDlg::OnInitDialog()
 	for (int i = 0; i < 12; i++) {
 		GetDlgItem(idc_button[i])->SetFont(&m_font2);
 	}
+	for (int i = 0; i < 8; i++) {
+		GetDlgItem(idc_edit[i])->SetFont(&m_font2);
+	}
 	m_font1.Detach();
 	m_font2.Detach();
 	// TODO:  여기에 추가 초기화 작업을 추가합니다.

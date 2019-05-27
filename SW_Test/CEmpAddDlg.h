@@ -27,7 +27,7 @@ public:
 	CSWTestDlg *myswdlg;
 	CEdit *pedit[9];
 	virtual BOOL OnInitDialog();
-	afx_msg void OnBnClickedButton12();
+	afx_msg void OnBnClickedButton12();  // 등록
 	afx_msg void OnBnClickedOk();
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 };
